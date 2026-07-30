@@ -1,8 +1,6 @@
 """
 This module initiates the Flask application to deploy the emotion detector.
 """
-import requests
-
 from flask import Flask, render_template, request
 from emotion_detection import emotion_detector
 
