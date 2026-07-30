@@ -1,9 +1,10 @@
-
 """
 This module initiates the Flask application to deploy the emotion detector.
 """
+import requests
+
 from flask import Flask, render_template, request
-from EmotionDetection.emotion_detection import emotion_detector
+from emotion_detection import emotion_detector
 
 app = Flask("Emotion Detector")
 
@@ -15,7 +16,7 @@ Renders the main application HTML page.
     return render_template('index.html')
 
 @app.route("/emotionDetector")
-def emotion_detector():
+def emotion_analyzer():
     """
 Retrieves user input text, runs emotion detection via the imported library,
     and returns the emotion scores and dominant emotion.
