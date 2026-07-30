@@ -1,6 +1,3 @@
-"""
-This module initiates the Flask application to deploy the emotion detector.
-"""
 from flask import Flask, render_template, request
 from emotion_detection import emotion_detector
 
@@ -8,21 +5,17 @@ app = Flask("Emotion Detector")
 
 @app.route("/")
 def render_index_page():
-    """
-Renders the main application HTML page.
-    """
     return render_template('index.html')
 
 @app.route("/emotionDetector")
 def emotion_analyzer():
-    """
-Retrieves user input text, runs emotion detection via the imported library,
-    and returns the emotion scores and dominant emotion.
-    """
     text_to_analyze = request.args.get('textToAnalyze')
     
     response = emotion_detector(text_to_analyze)
-    
+      
+    if response["dominant_emotion"] is None:
+        return "Invalid text! Please try again!" 
+        
     formatted_response = "For the given statement, the system response is 'anger': {}, 'disgust': {}, 'fear': {}, 'joy': {} and 'sadness': {}. The dominant emotion is {}.".format(
     response['anger'], 
     response['disgust'], 
